@@ -1,10 +1,12 @@
 package OneWayDev.tn.OneWayDev.Controller;
 
 import OneWayDev.tn.OneWayDev.Entity.Actif;
+import OneWayDev.tn.OneWayDev.Entity.User;
 import OneWayDev.tn.OneWayDev.Service.DepartementService;
 import OneWayDev.tn.OneWayDev.Service.ProjetService;
 import OneWayDev.tn.OneWayDev.dto.request.DepartementRequest;
 import OneWayDev.tn.OneWayDev.dto.request.ProjetRequest;
+import OneWayDev.tn.OneWayDev.dto.request.ProjetRequestChef;
 import OneWayDev.tn.OneWayDev.dto.response.RiskMatrixCell;
 import OneWayDev.tn.OneWayDev.dto.response.RiskSummary;
 import OneWayDev.tn.OneWayDev.exception.EmailExistsExecption;
@@ -16,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +63,20 @@ private final ProjetService projetService;
     public ResponseEntity<?> addProjet( @Valid @RequestBody ProjetRequest projetRequest){
         try {
             return new ResponseEntity<>(projetService.addProjet(projetRequest), HttpStatus.CREATED);
+        }
+
+        catch (Exception e) {
+            System.out.println(e.getClass().getName());
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>("An unexpected error occurred try again", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @PostMapping("/chef-add")
+    public ResponseEntity<?> addProjetChef(@Valid @RequestBody ProjetRequestChef projetRequestChef, Principal principal){
+        try {
+            String chef=principal.getName();
+            return new ResponseEntity<>(projetService.addProjetChef(projetRequestChef,chef), HttpStatus.CREATED);
         }
 
         catch (Exception e) {

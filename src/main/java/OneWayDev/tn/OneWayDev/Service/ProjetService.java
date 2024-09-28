@@ -7,6 +7,7 @@ import OneWayDev.tn.OneWayDev.Repository.DepartementRepository;
 import OneWayDev.tn.OneWayDev.Repository.ProjetRepository;
 import OneWayDev.tn.OneWayDev.Repository.UserRepository;
 import OneWayDev.tn.OneWayDev.dto.request.ProjetRequest;
+import OneWayDev.tn.OneWayDev.dto.request.ProjetRequestChef;
 import OneWayDev.tn.OneWayDev.dto.response.RiskMatrixCell;
 import OneWayDev.tn.OneWayDev.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +56,25 @@ public class ProjetService {
         projet.setEtat(projetRequest.getEtat());
         projet.setDateDebut(projetRequest.getDateDebut());
         projet.setDateFin(projetRequest.getDateFin());
+        return projetRepository.save(projet);
+
+
+
+    }
+    public Projet addProjetChef(ProjetRequestChef projetRequestChef,String chef){
+
+        Departement departement=  departementRepository.findById(projetRequestChef.getDepartementId()).orElseThrow(()->new NotFoundException(" no departement found"));
+        User chefProjet= userRepository.findByEmail(chef).orElseThrow(()->new NotFoundException(" no chef projet found"));
+
+        Projet projet=new Projet();
+        projet.setChefProjet(chefProjet);
+        projet.setDepartement(departement);
+        projet.setNom(projetRequestChef.getNom());
+        projet.setAvancement(projetRequestChef.getAvancement());
+        projet.setDescription(projetRequestChef.getDescription());
+        projet.setEtat(projetRequestChef.getEtat());
+        projet.setDateDebut(projetRequestChef.getDateDebut());
+        projet.setDateFin(projetRequestChef.getDateFin());
         return projetRepository.save(projet);
 
 
