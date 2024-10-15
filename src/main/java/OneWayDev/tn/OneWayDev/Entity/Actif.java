@@ -33,12 +33,15 @@ public class Actif {
     private List<Projet> projets = new ArrayList<>();
     @OneToOne(mappedBy = "actif",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private Risque risque;
-    @ManyToMany(mappedBy = "actifs",cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "actifs",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Vulnerabilite>vulnerabilites;
 
 
 
-
+    public void addVulnerabilite(Vulnerabilite vulnerabilite) {
+        this.vulnerabilites.add(vulnerabilite);
+            vulnerabilite.getActifs().add(this);
+    }
 
     public void addProjet(Projet projet) {
         this.projets.add(projet);

@@ -18,6 +18,6 @@ public class AuthenticationRequest {
     @NotBlank(message = "email is required and cannot be blank.")
     @Column(unique = true)
     private String username;
-    @NotBlank(message = "email is required and cannot be blank.")
+    @NotBlank(message = "password is required and cannot be blank.")
     private String password;
 }
