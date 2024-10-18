@@ -2,24 +2,23 @@ package OneWayDev.tn.OneWayDev.Service;
 
 import OneWayDev.tn.OneWayDev.Entity.*;
 import OneWayDev.tn.OneWayDev.Repository.ActifRepository;
-import OneWayDev.tn.OneWayDev.Repository.CategorieRepository;
+import OneWayDev.tn.OneWayDev.Repository.MenaceRepository;
 import OneWayDev.tn.OneWayDev.Repository.VulnerabiliteRepository;
-import OneWayDev.tn.OneWayDev.dto.request.ActifRequest;
 import OneWayDev.tn.OneWayDev.dto.request.MenaceRequest;
 import OneWayDev.tn.OneWayDev.dto.request.VulnerabiliteRequest;
 import OneWayDev.tn.OneWayDev.exception.NotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
 public class VulnerabiliteService {
     private final ActifRepository actifRepository;
     private final VulnerabiliteRepository vulnerabiliteRepository;
+    private final MenaceRepository menaceRepository;
     public List<Actif> findAllVulnerabilite(){
         List<Actif> actifs = actifRepository.findAll();
         return actifs;
@@ -34,7 +33,6 @@ public class VulnerabiliteService {
         Actif actif = actifRepository.findById(vulnerabiliteRequest.getActifId())
                 .orElseThrow(() -> new NotFoundException("Actif not found with id: " + vulnerabiliteRequest.getActifId()));
         Vulnerabilite vulnerabilite=new Vulnerabilite();
-        System.out.println("testing non into the method service "+vulnerabiliteRequest.getNom());
         vulnerabilite.setNom(vulnerabiliteRequest.getNom());
 
        actif.addVulnerabilite(vulnerabilite);
@@ -52,11 +50,25 @@ public class VulnerabiliteService {
 
         return vulnerabiliteRepository.save(vulnerabilite);
     }
+    @Transactional
+    public void removeMenaceFromVulnerabilite(Long vulnerabiliteId, Long menaceId) {
+        Vulnerabilite vulnerabilite = vulnerabiliteRepository.findById(vulnerabiliteId)
+                .orElseThrow(()->new NotFoundException("Vulnerabilite not found with id: " + vulnerabiliteId));
 
 
 
+      Menace menace=   menaceRepository.findById(menaceId)
+              .orElseThrow(()->new NotFoundException("Menace not found with id: " + menaceId));
 
+        if (vulnerabilite.getMenaces().contains(menace)) {
+            vulnerabilite.getMenaces().remove(menace);
+            menace.getVulnerabilites().remove(vulnerabilite);
 
-
+            vulnerabiliteRepository.save(vulnerabilite);
+            menaceRepository.save(menace);
+        } else {
+            throw new IllegalArgumentException("Menace is not associated with the Vulnerabilite");
+        }
+    }
 
 }

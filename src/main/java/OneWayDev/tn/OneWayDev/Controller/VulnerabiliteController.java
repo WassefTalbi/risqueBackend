@@ -74,5 +74,10 @@ public class VulnerabiliteController {
         }
     }
 
+    @DeleteMapping("/{vulnerabiliteId}/remove-menace/{menaceId}")
+    public ResponseEntity<Void> removeMenaceFromVulnerabilite(@PathVariable Long vulnerabiliteId, @PathVariable Long menaceId) {
+        vulnerabiliteService.removeMenaceFromVulnerabilite(vulnerabiliteId, menaceId);
+        return ResponseEntity.noContent().build();
+    }
 
 }

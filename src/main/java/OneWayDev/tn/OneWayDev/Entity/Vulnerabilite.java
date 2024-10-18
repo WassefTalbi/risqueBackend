@@ -29,5 +29,11 @@ public class Vulnerabilite {
         this.getMenaces().add(menace);
         menace.getVulnerabilites().add(this);
     }
+    public void removeMenace(Menace menace) {
+        if (this.getMenaces().contains(menace)) {
+            this.getMenaces().remove(menace);
+            menace.getVulnerabilites().remove(this);
+        }
+    }
 
 }
