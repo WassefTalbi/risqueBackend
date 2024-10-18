@@ -48,27 +48,24 @@ public class RisqueService {
         risque.setValeurBaseImpact(risqueRequest.getValeurBaseImpact());
 
         return risque;
-
-
-
     }
-/*
- public Entreprise editActif(Long idActif, EntrepriseRequest entrepriseRequest){
+
+ public Risque editRisque(Long idRisque, RisqueRequest risqueRequest){
      try{
-         Entreprise entreprise= entrepriseRepository.findById(idDepartement).orElseThrow(()->new NotFoundException("departement not found"));
-         entreprise.setNom(entrepriseRequest.getNom());
-         entreprise.setDomaine(entrepriseRequest.getDomaine());
-         entreprise.setAdresse(entrepriseRequest.getAdresse());
-         String logo= fileService.uploadFile(entrepriseRequest.getLogo());
-         entreprise.setLogo(logo);
-         return entrepriseRepository.save(entreprise);
+         Risque risque= risqueRepository.findById(idRisque).orElseThrow(()->new NotFoundException("risque not found"));
+         risque.setNom(risqueRequest.getRisqueNom());
+         risque.setPriorite(risqueRequest.getRisquePriorite());
+         risque.setValeurFinanciere(risqueRequest.getRisqueValeurFinanciere());
+         risque.setProbabilite(risqueRequest.getProbabilite());
+         risque.setValeurBaseImpact(risqueRequest.getValeurBaseImpact());
+         return risqueRepository.save(risque);
      }
      catch (Exception e){
          throw new RuntimeException(e.getMessage());
      }
 
  }
-*/
+
     public void deleteRisque(Long idRisque){
         Risque risque= risqueRepository.findById(idRisque).orElseThrow(()->new NotFoundException(" no risque found"));
         risqueRepository.deleteById(idRisque);

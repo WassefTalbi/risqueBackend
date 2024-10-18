@@ -45,7 +45,7 @@ private final DepartementService departementService;
     @GetMapping("/findById/{idDepartement}")
     public ResponseEntity<?>findDepartementById(@PathVariable Long idDepartement){
         try {
-            return new ResponseEntity<>(departementService.findDEpartementById(idDepartement), HttpStatus.OK);
+            return new ResponseEntity<>(departementService.findDepartementById(idDepartement), HttpStatus.OK);
         }catch (NotFoundException execption){
             return new ResponseEntity<>(execption.getMessage(), HttpStatus.NOT_FOUND);
         }
@@ -67,11 +67,11 @@ private final DepartementService departementService;
         }
 
     }
-    /*
+
         @PutMapping ("/edit/{idEntreprise}")
-        public ResponseEntity<?> editEntreprise(@PathVariable Long idEntreprise,@ModelAttribute @Valid EntrepriseRequest entrepriseRequest){
+        public ResponseEntity<?> editDepartement(@PathVariable Long idDepartement,@ModelAttribute @Valid DepartementRequest departementRequest){
             try {
-                return new ResponseEntity<>(entrepriseService.editEntreprise(idEntreprise,entrepriseRequest), HttpStatus.CREATED);
+                return new ResponseEntity<>(departementService.editDepartement(idDepartement,departementRequest), HttpStatus.OK);
             }
             catch (NotFoundException e){
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -83,7 +83,7 @@ private final DepartementService departementService;
             }
 
         }
-    */
+
     @DeleteMapping("/delete/{idDepartement}")
     public ResponseEntity<Map<String, String>> removeDepartement(@PathVariable Long idDepartement) {
         Map<String, String> response = new HashMap<>();

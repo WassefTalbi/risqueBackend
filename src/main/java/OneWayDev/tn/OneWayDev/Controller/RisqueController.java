@@ -60,11 +60,11 @@ private final RisqueService risqueService;
         }
 
     }
-    /*
-        @PutMapping ("/edit/{idActif}")
-        public ResponseEntity<?> editActif(@PathVariable Long idActif,@ModelAttribute @Valid EntrepriseRequest entrepriseRequest){
+
+        @PutMapping ("/edit/{idRisque}")
+        public ResponseEntity<?> editActif(@PathVariable Long idRisque,@ModelAttribute @Valid RisqueRequest risqueRequest){
             try {
-                return new ResponseEntity<>(entrepriseService.editEntreprise(idEntreprise,entrepriseRequest), HttpStatus.CREATED);
+                return new ResponseEntity<>(risqueService.editRisque(idRisque,risqueRequest), HttpStatus.CREATED);
             }
             catch (NotFoundException e){
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -76,7 +76,7 @@ private final RisqueService risqueService;
             }
 
         }
-    */
+
     @DeleteMapping("/delete/{idRisque}")
     public ResponseEntity<Map<String, String>> removeActif(@PathVariable Long idRisque) {
         Map<String, String> response = new HashMap<>();

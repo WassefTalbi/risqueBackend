@@ -3,6 +3,7 @@ package OneWayDev.tn.OneWayDev.Controller;
 import OneWayDev.tn.OneWayDev.Service.ActifService;
 import OneWayDev.tn.OneWayDev.Service.DepartementService;
 import OneWayDev.tn.OneWayDev.dto.request.ActifRequest;
+import OneWayDev.tn.OneWayDev.dto.request.AssetRequest;
 import OneWayDev.tn.OneWayDev.dto.request.DepartementRequest;
 import OneWayDev.tn.OneWayDev.exception.EmailExistsExecption;
 import OneWayDev.tn.OneWayDev.exception.NotFoundException;
@@ -71,11 +72,11 @@ private final ActifService actifService;
         }
 
     }
-    /*
+
         @PutMapping ("/edit/{idActif}")
-        public ResponseEntity<?> editActif(@PathVariable Long idActif,@ModelAttribute @Valid EntrepriseRequest entrepriseRequest){
+        public ResponseEntity<?> editActif(@PathVariable Long idActif,@ModelAttribute @Valid AssetRequest assetRequest){
             try {
-                return new ResponseEntity<>(entrepriseService.editEntreprise(idEntreprise,entrepriseRequest), HttpStatus.CREATED);
+                return new ResponseEntity<>(actifService.editActif(idActif,assetRequest), HttpStatus.CREATED);
             }
             catch (NotFoundException e){
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -87,7 +88,7 @@ private final ActifService actifService;
             }
 
         }
-    */
+
     @DeleteMapping("/delete/{idActif}")
     public ResponseEntity<Map<String, String>> removeActif(@PathVariable Long idActif) {
         Map<String, String> response = new HashMap<>();

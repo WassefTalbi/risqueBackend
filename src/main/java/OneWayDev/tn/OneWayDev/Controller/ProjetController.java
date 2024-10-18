@@ -86,11 +86,11 @@ private final ProjetService projetService;
         }
 
     }
-    /*
-        @PutMapping ("/edit/{idEntreprise}")
-        public ResponseEntity<?> editEntreprise(@PathVariable Long idEntreprise,@ModelAttribute @Valid EntrepriseRequest entrepriseRequest){
+
+        @PutMapping ("/edit/{idProjet}")
+        public ResponseEntity<?> editEntreprise(@PathVariable Long idProjet,@ModelAttribute @Valid ProjetRequest projetRequest){
             try {
-                return new ResponseEntity<>(entrepriseService.editEntreprise(idEntreprise,entrepriseRequest), HttpStatus.CREATED);
+                return new ResponseEntity<>(projetService.editProjet(idProjet,projetRequest), HttpStatus.OK);
             }
             catch (NotFoundException e){
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -102,7 +102,7 @@ private final ProjetService projetService;
             }
 
         }
-    */
+
     @DeleteMapping("/delete/{idProjet}")
     public ResponseEntity<Map<String, String>> deleteProjet(@PathVariable Long idProjet) {
         Map<String, String> response = new HashMap<>();

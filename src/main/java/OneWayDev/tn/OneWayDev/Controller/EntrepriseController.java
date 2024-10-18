@@ -67,7 +67,7 @@ private final EntrepriseService entrepriseService;
     @PutMapping ("/edit/{idEntreprise}")
     public ResponseEntity<?> editEntreprise(@PathVariable Long idEntreprise,@ModelAttribute @Valid EntrepriseRequest entrepriseRequest){
         try {
-            return new ResponseEntity<>(entrepriseService.editEntreprise(idEntreprise,entrepriseRequest), HttpStatus.CREATED);
+            return new ResponseEntity<>(entrepriseService.editEntreprise(idEntreprise,entrepriseRequest), HttpStatus.OK);
         }
         catch (NotFoundException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

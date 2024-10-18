@@ -27,7 +27,7 @@ public class DepartementService {
         return departements;
     }
 
-    public Departement findDEpartementById(Long idDepartement){
+    public Departement findDepartementById(Long idDepartement){
         Optional<Departement> departement= departementRepository.findById(idDepartement);
         if (!departement.isPresent()){
             throw new NotFoundException("no Departement found");
@@ -54,25 +54,25 @@ public class DepartementService {
 
 
     }
-    /*
- public Entreprise editEntreprise(Long idDepartement, EntrepriseRequest entrepriseRequest){
+
+ public Departement editDepartement(Long idDepartement, DepartementRequest departementRequest){
      try{
-         Entreprise entreprise= entrepriseRepository.findById(idDepartement).orElseThrow(()->new NotFoundException("departement not found"));
-         entreprise.setNom(entrepriseRequest.getNom());
-         entreprise.setDomaine(entrepriseRequest.getDomaine());
-         entreprise.setAdresse(entrepriseRequest.getAdresse());
-         String logo= fileService.uploadFile(entrepriseRequest.getLogo());
-         entreprise.setLogo(logo);
-         return entrepriseRepository.save(entreprise);
+         Departement departement= departementRepository.findById(idDepartement).orElseThrow(()->new NotFoundException("departement not found"));
+         departement.setNom(departementRequest.getNom());
+         departement.setPriorite(departementRequest.getPriorite());
+         departement.setValeurEconomique(departementRequest.getValeurEconomique());
+         String logo= fileService.uploadFile(departementRequest.getLogo());
+         departement.setLogo(logo);
+         return departementRepository.save(departement);
      }
      catch (Exception e){
          throw new RuntimeException(e.getMessage());
      }
 
  }
-*/
+
     public void deleteDepartement(Long idDepartement){
-        Departement entreprise= departementRepository.findById(idDepartement).orElseThrow(()->new NotFoundException(" no Departement found"));
+        Departement departement= departementRepository.findById(idDepartement).orElseThrow(()->new NotFoundException(" no Departement found"));
          departementRepository.deleteById(idDepartement);
 
     }

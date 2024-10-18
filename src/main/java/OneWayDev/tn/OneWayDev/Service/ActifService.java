@@ -7,6 +7,7 @@ import OneWayDev.tn.OneWayDev.Entity.Risque;
 import OneWayDev.tn.OneWayDev.Repository.ActifRepository;
 import OneWayDev.tn.OneWayDev.Repository.CategorieRepository;
 import OneWayDev.tn.OneWayDev.dto.request.ActifRequest;
+import OneWayDev.tn.OneWayDev.dto.request.AssetRequest;
 import OneWayDev.tn.OneWayDev.dto.request.RisqueRequest;
 import OneWayDev.tn.OneWayDev.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -68,23 +69,25 @@ public class ActifService {
 
 
     }
-    /*
- public Entreprise editActif(Long idActif, EntrepriseRequest entrepriseRequest){
+
+ public Actif editActif(Long idActif, AssetRequest assetRequest){
      try{
-         Entreprise entreprise= entrepriseRepository.findById(idDepartement).orElseThrow(()->new NotFoundException("departement not found"));
-         entreprise.setNom(entrepriseRequest.getNom());
-         entreprise.setDomaine(entrepriseRequest.getDomaine());
-         entreprise.setAdresse(entrepriseRequest.getAdresse());
-         String logo= fileService.uploadFile(entrepriseRequest.getLogo());
-         entreprise.setLogo(logo);
-         return entrepriseRepository.save(entreprise);
+         Actif actif= actifRepository.findById(idActif).orElseThrow(()->new NotFoundException("actif not found"));
+         actif.setNom(assetRequest.getNom());
+         actif.setDescription(assetRequest.getDescription());
+         actif.setPriorite(assetRequest.getPriorite());
+         actif.setValeurFinanciere(assetRequest.getValeurFinanciere());
+         actif.setValeurDonnees(assetRequest.getValeurDonnees());
+         String logo= fileService.uploadFile(assetRequest.getLogo());
+         actif.setLogo(logo);
+         return actifRepository.save(actif);
      }
      catch (Exception e){
          throw new RuntimeException(e.getMessage());
      }
 
  }
-*/
+
     public void deleteActif(Long idActif) {
         Actif actif = actifRepository.findById(idActif).orElseThrow(() -> new NotFoundException("No actif found"));
         for (Projet projet : new ArrayList<>(actif.getProjets())) {
