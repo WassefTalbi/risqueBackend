@@ -41,7 +41,7 @@ private final CategorieService categorieService;
         }
     }
     @GetMapping("/findById/{idCategorie}")
-    public ResponseEntity<?>findDepartementById(@PathVariable Long idCategorie){
+    public ResponseEntity<?>findCategorieById(@PathVariable Long idCategorie){
         try {
             return new ResponseEntity<>(categorieService.findCategorieById(idCategorie), HttpStatus.OK);
         }catch (NotFoundException execption){
@@ -65,23 +65,21 @@ private final CategorieService categorieService;
         }
 
     }
-    /*
-        @PutMapping ("/edit/{idEntreprise}")
-        public ResponseEntity<?> editCategorie(@PathVariable Long idEntreprise,@ModelAttribute @Valid EntrepriseRequest entrepriseRequest){
+
+        @PutMapping ("/edit/{idCategory}")
+        public ResponseEntity<?> editCategorie(@PathVariable Long idCategory,@ModelAttribute @Valid CategorieRequest categorieRequest){
             try {
-                return new ResponseEntity<>(entrepriseService.editEntreprise(idEntreprise,entrepriseRequest), HttpStatus.CREATED);
+                return new ResponseEntity<>(categorieService.editCategorie(idCategory,categorieRequest), HttpStatus.OK);
             }
             catch (NotFoundException e){
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
             }
             catch (Exception e) {
-                System.out.println(e.getClass().getName());
-                System.out.println(e.getMessage());
                 return new ResponseEntity<>("An unexpected error occurred try again", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
         }
-    */
+
     @DeleteMapping("/delete/{iCategorie}")
     public ResponseEntity<Map<String, String>> removeCategorie(@PathVariable Long iCategorie) {
         Map<String, String> response = new HashMap<>();

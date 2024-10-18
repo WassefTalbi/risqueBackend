@@ -49,9 +49,12 @@ public class CategorieService {
 
 
     }
-    public Categorie editCategorie(Long idCategorie, String nom){
+    public Categorie editCategorie(Long idCategorie, CategorieRequest categorieRequest){
+        System.out.println("testing");
         Categorie categorie= categorieRepository.findById(idCategorie).orElseThrow(()->new NotFoundException(" no Categorie found"));
-        categorie.setNom(nom);
+        categorie.setNom(categorieRequest.getNom());
+        String logo= fileService.uploadFile(categorieRequest.getLogo());
+        categorie.setLogo(logo);
         return categorieRepository.save(categorie);
 
 
@@ -59,7 +62,7 @@ public class CategorieService {
     }
 
     public void deleteCategorie(Long idCategorie){
-        Categorie projet= categorieRepository.findById(idCategorie).orElseThrow(()->new NotFoundException(" no categorie found"));
+        Categorie categorie= categorieRepository.findById(idCategorie).orElseThrow(()->new NotFoundException(" no categorie found"));
          categorieRepository.deleteById(idCategorie);
 
     }
