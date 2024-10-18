@@ -74,9 +74,14 @@ public class VulnerabiliteController {
         }
     }
 
-    @DeleteMapping("/{vulnerabiliteId}/remove-menace/{menaceId}")
+    @DeleteMapping("/remove-menace/{vulnerabiliteId}/{menaceId}")
     public ResponseEntity<Void> removeMenaceFromVulnerabilite(@PathVariable Long vulnerabiliteId, @PathVariable Long menaceId) {
         vulnerabiliteService.removeMenaceFromVulnerabilite(vulnerabiliteId, menaceId);
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/remove-vulnerabilite/{actifId}/{vulnerabiliteId}")
+    public ResponseEntity<Void> removeActifFromProject(@PathVariable Long actifId, @PathVariable Long vulnerabiliteId) {
+        vulnerabiliteService.removeVulnerabiliteFromActif(actifId, vulnerabiliteId);
         return ResponseEntity.noContent().build();
     }
 

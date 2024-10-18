@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class VulnerabiliteService {
     private final ActifRepository actifRepository;
     private final VulnerabiliteRepository vulnerabiliteRepository;
@@ -50,7 +51,7 @@ public class VulnerabiliteService {
 
         return vulnerabiliteRepository.save(vulnerabilite);
     }
-    @Transactional
+
     public void removeMenaceFromVulnerabilite(Long vulnerabiliteId, Long menaceId) {
         Vulnerabilite vulnerabilite = vulnerabiliteRepository.findById(vulnerabiliteId)
                 .orElseThrow(()->new NotFoundException("Vulnerabilite not found with id: " + vulnerabiliteId));
@@ -71,4 +72,18 @@ public class VulnerabiliteService {
         }
     }
 
+
+    public void removeVulnerabiliteFromActif(Long actifId, Long vulnerabiliteId) {
+        Actif actif = actifRepository.findById(actifId)
+                .orElseThrow(() -> new NotFoundException("No actif found with ID: " + actifId));
+        Vulnerabilite vulnerabilite = vulnerabiliteRepository.findById(vulnerabiliteId)
+                .orElseThrow(() -> new NotFoundException("No actif found with ID: " + vulnerabiliteId));
+        if (!actif.getVulnerabilites().contains(vulnerabilite)) {
+            throw new IllegalStateException("vulnerabilite with ID: " + vulnerabiliteId + " is not part of the actif with ID: " + actifId);
+        }
+        actif.getVulnerabilites().remove(vulnerabilite);
+        vulnerabilite.getActifs().remove(actif);
+        vulnerabiliteRepository.save(vulnerabilite);
+        actifRepository.save(actif);
+    }
 }
