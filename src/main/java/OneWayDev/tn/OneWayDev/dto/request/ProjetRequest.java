@@ -32,7 +32,7 @@ public class ProjetRequest {
     private Long chefProjetId;
     @NotNull(message = "departement Id is required and cannot be null.")
     private Long departementId;
-    //@NotBlank(message = "etat is required and cannot be blank.")
+
     private Etat etat;
     @NotPast(message = "dateDebut cannot be in the past.")
     private LocalDate dateDebut;

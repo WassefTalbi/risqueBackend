@@ -61,8 +61,11 @@ public class DepartementService {
          departement.setNom(departementRequest.getNom());
          departement.setPriorite(departementRequest.getPriorite());
          departement.setValeurEconomique(departementRequest.getValeurEconomique());
-         String logo= fileService.uploadFile(departementRequest.getLogo());
-         departement.setLogo(logo);
+         if (departementRequest.getLogo() != null && !departementRequest.getLogo().isEmpty()) {
+             String logo= fileService.uploadFile(departementRequest.getLogo());
+             departement.setLogo(logo);
+         }
+
          return departementRepository.save(departement);
      }
      catch (Exception e){

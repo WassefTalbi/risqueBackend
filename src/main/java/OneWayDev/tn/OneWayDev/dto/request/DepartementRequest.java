@@ -25,7 +25,7 @@ public class DepartementRequest {
     private Integer valeurEconomique;
     @NotNull(message = "priorite is required and cannot be null.")
     private Integer priorite;
-    @NotNull(message = "departement logo is required.")
+
     private MultipartFile logo;
 
 

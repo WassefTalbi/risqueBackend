@@ -22,7 +22,7 @@ public class CategorieRequest {
     @Size(min=3,max = 25,message = "nom length min is 3 and max is 25")
     private String nom;
 
-    @NotNull(message = "categorie logo is required.")
+
     private MultipartFile logo;
 
 

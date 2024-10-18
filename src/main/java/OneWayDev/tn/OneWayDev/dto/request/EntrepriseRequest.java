@@ -28,7 +28,7 @@ public class EntrepriseRequest {
     @NotBlank(message = "domaine is required and cannot be blank.")
     @Size(min=3,max = 25,message = "domaine length min is 3 and max is 25")
     private String domaine;
-    @NotNull(message = "entreprise logo is required.")
+
     private MultipartFile logo;
 
 

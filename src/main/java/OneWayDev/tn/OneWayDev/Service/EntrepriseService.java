@@ -62,8 +62,10 @@ public class EntrepriseService {
             entreprise.setNom(entrepriseRequest.getNom());
             entreprise.setDomaine(entrepriseRequest.getDomaine());
             entreprise.setAdresse(entrepriseRequest.getAdresse());
-            String logo= fileService.uploadFile(entrepriseRequest.getLogo());
-            entreprise.setLogo(logo);
+            if (entrepriseRequest.getLogo() != null && !entrepriseRequest.getLogo().isEmpty()) {
+                String logo= fileService.uploadFile(entrepriseRequest.getLogo());
+                entreprise.setLogo(logo);
+            }
             return entrepriseRepository.save(entreprise);
         }
         catch (Exception e){

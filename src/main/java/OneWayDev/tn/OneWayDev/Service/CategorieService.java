@@ -50,11 +50,13 @@ public class CategorieService {
 
     }
     public Categorie editCategorie(Long idCategorie, CategorieRequest categorieRequest){
-        System.out.println("testing");
         Categorie categorie= categorieRepository.findById(idCategorie).orElseThrow(()->new NotFoundException(" no Categorie found"));
         categorie.setNom(categorieRequest.getNom());
-        String logo= fileService.uploadFile(categorieRequest.getLogo());
-        categorie.setLogo(logo);
+        if (categorieRequest.getLogo() != null && !categorieRequest.getLogo().isEmpty()) {
+            String logo= fileService.uploadFile(categorieRequest.getLogo());
+            categorie.setLogo(logo);
+        }
+
         return categorieRepository.save(categorie);
 
 

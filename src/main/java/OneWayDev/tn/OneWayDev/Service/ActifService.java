@@ -72,14 +72,20 @@ public class ActifService {
 
  public Actif editActif(Long idActif, AssetRequest assetRequest){
      try{
+
          Actif actif= actifRepository.findById(idActif).orElseThrow(()->new NotFoundException("actif not found"));
+         Categorie categorie= categorieRepository.findById(assetRequest.getCategorieId()).orElseThrow(()->new NotFoundException(" no categorie found"));
          actif.setNom(assetRequest.getNom());
          actif.setDescription(assetRequest.getDescription());
+         actif.setCategorie(categorie);
          actif.setPriorite(assetRequest.getPriorite());
          actif.setValeurFinanciere(assetRequest.getValeurFinanciere());
          actif.setValeurDonnees(assetRequest.getValeurDonnees());
-         String logo= fileService.uploadFile(assetRequest.getLogo());
-         actif.setLogo(logo);
+         if (assetRequest.getLogo() != null && !assetRequest.getLogo().isEmpty()) {
+             String logo= fileService.uploadFile(assetRequest.getLogo());
+             actif.setLogo(logo);
+         }
+
          return actifRepository.save(actif);
      }
      catch (Exception e){

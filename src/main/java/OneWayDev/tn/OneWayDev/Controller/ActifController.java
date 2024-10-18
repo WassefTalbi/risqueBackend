@@ -75,6 +75,7 @@ private final ActifService actifService;
 
         @PutMapping ("/edit/{idActif}")
         public ResponseEntity<?> editActif(@PathVariable Long idActif,@ModelAttribute @Valid AssetRequest assetRequest){
+            assetRequest.setIsNew(false);
             try {
                 return new ResponseEntity<>(actifService.editActif(idActif,assetRequest), HttpStatus.CREATED);
             }
