@@ -50,7 +50,7 @@ private final ProjetService projetService;
         }
     }
     @GetMapping("/findById/{idProjet}")
-    public ResponseEntity<?>findDepartementById(@PathVariable Long idProjet){
+    public ResponseEntity<?>findProjetById(@PathVariable Long idProjet){
         try {
             return new ResponseEntity<>(projetService.findProjetById(idProjet), HttpStatus.OK);
         }catch (NotFoundException execption){
@@ -88,7 +88,7 @@ private final ProjetService projetService;
     }
 
         @PutMapping ("/edit/{idProjet}")
-        public ResponseEntity<?> editProjet(@PathVariable Long idProjet,@ModelAttribute @Valid ProjetRequest projetRequest){
+        public ResponseEntity<?> editProjet(@PathVariable Long idProjet,@RequestBody @Valid ProjetRequest projetRequest){
             try {
                 return new ResponseEntity<>(projetService.editProjet(idProjet,projetRequest), HttpStatus.OK);
             }

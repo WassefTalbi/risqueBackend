@@ -24,7 +24,7 @@ public class ProjetRequest {
     @Size(min=3,max = 25,message = "nom length min is 3 and max is 25")
     private String nom;
     @NotBlank(message = "description is required and cannot be blank.")
-    @Size(min=3,max = 200,message = "description length min is 3 and max is 200      ")
+    @Size(min=3,max = 200,message = "description length min is 3 and max is 200")
     private String description;
     @NotNull(message = "avancement is required and cannot be null.")
     private Integer avancement;
@@ -32,11 +32,8 @@ public class ProjetRequest {
     private Long chefProjetId;
     @NotNull(message = "departement Id is required and cannot be null.")
     private Long departementId;
-
     private Etat etat;
-    @NotPast(message = "dateDebut cannot be in the past.")
     private LocalDate dateDebut;
-
     @NotPast(message = "dateFin cannot be in the past.")
     private LocalDate dateFin;
 
