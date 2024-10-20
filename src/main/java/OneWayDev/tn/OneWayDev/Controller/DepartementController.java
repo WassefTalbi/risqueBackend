@@ -68,7 +68,7 @@ private final DepartementService departementService;
 
     }
 
-        @PutMapping ("/edit/{idEntreprise}")
+        @PutMapping ("/edit/{idDepartement}")
         public ResponseEntity<?> editDepartement(@PathVariable Long idDepartement,@ModelAttribute @Valid DepartementRequest departementRequest){
             try {
                 return new ResponseEntity<>(departementService.editDepartement(idDepartement,departementRequest), HttpStatus.OK);

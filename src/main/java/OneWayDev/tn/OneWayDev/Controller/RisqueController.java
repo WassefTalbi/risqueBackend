@@ -1,8 +1,6 @@
 package OneWayDev.tn.OneWayDev.Controller;
 
-import OneWayDev.tn.OneWayDev.Service.ActifService;
 import OneWayDev.tn.OneWayDev.Service.RisqueService;
-import OneWayDev.tn.OneWayDev.dto.request.ActifRequest;
 import OneWayDev.tn.OneWayDev.dto.request.RisqueRequest;
 import OneWayDev.tn.OneWayDev.exception.EmailExistsExecption;
 import OneWayDev.tn.OneWayDev.exception.NotFoundException;
@@ -11,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,8 +26,6 @@ private final RisqueService risqueService;
 
         }
         catch (Exception e) {
-            System.out.println("Caught Exception: " + e.getClass().getName());
-            System.out.println("Exception Message: " + e.getMessage());
             return new ResponseEntity<>("An unexpected error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -54,15 +49,13 @@ private final RisqueService risqueService;
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);//409
         }
         catch (Exception e) {
-            System.out.println(e.getClass().getName());
-            System.out.println(e.getMessage());
             return new ResponseEntity<>("An unexpected error occurred try again", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
         @PutMapping ("/edit/{idRisque}")
-        public ResponseEntity<?> editActif(@PathVariable Long idRisque,@ModelAttribute @Valid RisqueRequest risqueRequest){
+        public ResponseEntity<?> editRisque(@PathVariable Long idRisque,@ModelAttribute @Valid RisqueRequest risqueRequest){
             try {
                 return new ResponseEntity<>(risqueService.editRisque(idRisque,risqueRequest), HttpStatus.CREATED);
             }

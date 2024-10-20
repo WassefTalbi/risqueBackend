@@ -30,12 +30,7 @@ public class RisqueService {
 
 
     public Risque findRisqueById(Long idRisque){
-        Optional<Risque> risque= risqueRepository.findById(idRisque);
-        if (!risque.isPresent()){
-            throw new NotFoundException("no Risque found");
-        }
-
-        return risque.get();
+        return  risqueRepository.findById(idRisque).orElseThrow(()->new NotFoundException("no risque found") );
     }
 
 
@@ -46,7 +41,6 @@ public class RisqueService {
         risque.setValeurFinanciere(risqueRequest.getRisqueValeurFinanciere());
         risque.setProbabilite(risqueRequest.getProbabilite());
         risque.setValeurBaseImpact(risqueRequest.getValeurBaseImpact());
-
         return risque;
     }
 

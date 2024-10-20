@@ -93,9 +93,6 @@ public class ProjetService {
         projet.setDateDebut(projetRequest.getDateDebut());
         projet.setDateFin(projetRequest.getDateFin());
         return projetRepository.save(projet);
-
-
-
     }
 
     public void deleteProjet(Long idProjet){
@@ -154,6 +151,7 @@ public class ProjetService {
                 .orElseThrow(() -> new NotFoundException("Projet not found"));
         List<Actif> actifs = projet.getActifs();
         double totalRisque = 0;
+        int nbr=0;
         for (Actif actif : actifs) {
             Risque risque = actif.getRisque();
 
@@ -165,19 +163,20 @@ public class ProjetService {
 
                     double risqueActif = probabilite * impact;
                     totalRisque += risqueActif;
+                    nbr++;
                 }
             }
         }
-        return totalRisque;
+        return totalRisque/nbr;
     }
 
     public String determineRiskTreatment(double totalRisk) {
-        if (totalRisk > 100) {
-            return "Avoid";
-        } else if (totalRisk > 50) {
-            return "Reduce";
+        if (totalRisk > 10) {
+            return "Refuser";
+        } else if (totalRisk > 5) {
+            return "Modérer";
         } else {
-            return "Accept";
+            return "Accepter";
         }
     }
 

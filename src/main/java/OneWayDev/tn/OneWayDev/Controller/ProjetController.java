@@ -88,7 +88,7 @@ private final ProjetService projetService;
     }
 
         @PutMapping ("/edit/{idProjet}")
-        public ResponseEntity<?> editEntreprise(@PathVariable Long idProjet,@ModelAttribute @Valid ProjetRequest projetRequest){
+        public ResponseEntity<?> editProjet(@PathVariable Long idProjet,@ModelAttribute @Valid ProjetRequest projetRequest){
             try {
                 return new ResponseEntity<>(projetService.editProjet(idProjet,projetRequest), HttpStatus.OK);
             }
@@ -96,8 +96,6 @@ private final ProjetService projetService;
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
             }
             catch (Exception e) {
-                System.out.println(e.getClass().getName());
-                System.out.println(e.getMessage());
                 return new ResponseEntity<>("An unexpected error occurred try again", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
