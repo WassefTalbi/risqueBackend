@@ -2,6 +2,7 @@ package OneWayDev.tn.OneWayDev.Controller;
 
 
 import OneWayDev.tn.OneWayDev.Entity.Actif;
+import OneWayDev.tn.OneWayDev.Entity.Menace;
 import OneWayDev.tn.OneWayDev.Entity.Vulnerabilite;
 import OneWayDev.tn.OneWayDev.Service.VulnerabiliteService;
 
@@ -21,9 +22,9 @@ import org.springframework.web.bind.annotation.*;
 public class VulnerabiliteController {
     private final VulnerabiliteService vulnerabiliteService;
     @GetMapping("/all")
-    public ResponseEntity<?> findAllVulnerabilite(){
+    public ResponseEntity<?> findAllMenace(){
         try {
-            return new ResponseEntity<>(vulnerabiliteService.findAllVulnerabilite(), HttpStatus.OK);
+            return new ResponseEntity<>(vulnerabiliteService.findAllMenace(), HttpStatus.OK);
 
         }
         catch (Exception e) {
@@ -33,9 +34,9 @@ public class VulnerabiliteController {
         }
     }
     @GetMapping("/of-actif/{idActif}")
-    public ResponseEntity<?> findVulnerabiliteByActif(@PathVariable Long idActif){
+    public ResponseEntity<?> findMenacesByActif(@PathVariable Long idActif){
         try {
-            return new ResponseEntity<>(vulnerabiliteService.findVulnerabiliteByActif(idActif), HttpStatus.OK);
+            return new ResponseEntity<>(vulnerabiliteService.findMenaceByActif(idActif), HttpStatus.OK);
 
         }
         catch (Exception e) {
@@ -46,10 +47,12 @@ public class VulnerabiliteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addVulnerabilite( @Valid @ModelAttribute VulnerabiliteRequest vulnerabiliteRequest) {
+    public ResponseEntity<?> addMenace( @Valid @ModelAttribute MenaceRequest menaceRequest) {
+        System.out.println("id"+menaceRequest.getActifId());
+        System.out.println("nom"+menaceRequest.getNom());
         try {
-            System.out.println("nom "+vulnerabiliteRequest.getNom());
-            Actif updatedActif = vulnerabiliteService.addVulnerabilite(vulnerabiliteRequest);
+            System.out.println("nom "+menaceRequest.getNom());
+            Actif updatedActif = vulnerabiliteService.addMenace(menaceRequest);
             return new ResponseEntity<>(updatedActif, HttpStatus.CREATED);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -60,10 +63,10 @@ public class VulnerabiliteController {
         }
     }
 
-    @PostMapping("/add-menace")
-    public ResponseEntity<?> addMenace( @ModelAttribute MenaceRequest menaceRequest) {
+    @PostMapping("/add-vulnerabilite")
+    public ResponseEntity<?> addVulnerabilite( @Valid @ModelAttribute VulnerabiliteRequest vulnerabiliteRequest) {
         try {
-            Vulnerabilite updatedVulnerabilite = vulnerabiliteService.addMenace(menaceRequest);
+            Menace updatedVulnerabilite = vulnerabiliteService.addVulnerabilite(vulnerabiliteRequest);
             return new ResponseEntity<>(updatedVulnerabilite, HttpStatus.CREATED);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -74,14 +77,14 @@ public class VulnerabiliteController {
         }
     }
 
-    @DeleteMapping("/remove-menace/{vulnerabiliteId}/{menaceId}")
-    public ResponseEntity<Void> removeMenaceFromVulnerabilite(@PathVariable Long vulnerabiliteId, @PathVariable Long menaceId) {
-        vulnerabiliteService.removeMenaceFromVulnerabilite(vulnerabiliteId, menaceId);
+    @DeleteMapping("/remove-vulnerabilite/{menaceId}/{vulnerabiliteId}")
+    public ResponseEntity<Void> removeMenaceFromVulnerabilite(@PathVariable Long menaceId, @PathVariable Long vulnerabiliteId) {
+        vulnerabiliteService.removeVulnerabiliteFromMenace(menaceId, vulnerabiliteId);
         return ResponseEntity.noContent().build();
     }
-    @DeleteMapping("/remove-vulnerabilite/{actifId}/{vulnerabiliteId}")
-    public ResponseEntity<Void> removeActifFromProject(@PathVariable Long actifId, @PathVariable Long vulnerabiliteId) {
-        vulnerabiliteService.removeVulnerabiliteFromActif(actifId, vulnerabiliteId);
+    @DeleteMapping("/remove-menace/{actifId}/{menaceId}")
+    public ResponseEntity<Void> removeMenaceFromProject(@PathVariable Long actifId, @PathVariable Long menaceId) {
+        vulnerabiliteService.removeMenaceFromActif(actifId, menaceId);
         return ResponseEntity.noContent().build();
     }
 

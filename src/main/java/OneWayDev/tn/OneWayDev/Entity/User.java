@@ -24,13 +24,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String email;
+    @JsonIgnore
     String password;
     String firstName;
     String lastName;
     String phone;
     private Boolean nonLocked;
     private Boolean enabled;
-    @Lob
+
     private String photoProfile;
 
     @ManyToMany
@@ -40,9 +41,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<MailToken> mailTokens;
-
-
-
 
     @OneToMany(mappedBy = "chefProjet")
     @JsonIgnore

@@ -20,20 +20,10 @@ public class Vulnerabilite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    @ManyToMany(mappedBy = "vulnerabilites",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
-    private List<Menace>menaces;
-    @ManyToMany()
+    @ManyToMany
     @JsonIgnore
-    private List<Actif>actifs=new ArrayList<>();
-    public void addMenace(Menace menace){
-        this.getMenaces().add(menace);
-        menace.getVulnerabilites().add(this);
-    }
-    public void removeMenace(Menace menace) {
-        if (this.getMenaces().contains(menace)) {
-            this.getMenaces().remove(menace);
-            menace.getVulnerabilites().remove(this);
-        }
-    }
+    private List<Menace>menaces=new ArrayList<>();
+
+
 
 }

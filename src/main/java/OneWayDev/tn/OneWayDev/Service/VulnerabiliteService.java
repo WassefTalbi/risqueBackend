@@ -20,39 +20,39 @@ public class VulnerabiliteService {
     private final ActifRepository actifRepository;
     private final VulnerabiliteRepository vulnerabiliteRepository;
     private final MenaceRepository menaceRepository;
-    public List<Actif> findAllVulnerabilite(){
-        List<Actif> actifs = actifRepository.findAll();
-        return actifs;
+    public List<Menace> findAllMenace(){
+        List<Menace> menaces = menaceRepository.findAll();
+        return menaces;
     }
-    public List<Vulnerabilite> findVulnerabiliteByActif( Long idActif){
-        List<Vulnerabilite> vulnerabilites = vulnerabiliteRepository.findByActifsId( idActif);
-        return vulnerabilites;
+    public List<Menace> findMenaceByActif( Long idActif){
+        List<Menace> menaces = menaceRepository.findByActifsId( idActif);
+        return menaces;
     }
 
-    public Actif addVulnerabilite(VulnerabiliteRequest vulnerabiliteRequest) {
+    public Actif addMenace(MenaceRequest menaceRequest) {
 
-        Actif actif = actifRepository.findById(vulnerabiliteRequest.getActifId())
-                .orElseThrow(() -> new NotFoundException("Actif not found with id: " + vulnerabiliteRequest.getActifId()));
-        Vulnerabilite vulnerabilite=new Vulnerabilite();
-        vulnerabilite.setNom(vulnerabiliteRequest.getNom());
+        Actif actif = actifRepository.findById(menaceRequest.getActifId())
+                .orElseThrow(() -> new NotFoundException("Actif not found with id: " + menaceRequest.getActifId()));
+        Menace menace=new Menace();
+        menace.setNom(menaceRequest.getNom());
 
-       actif.addVulnerabilite(vulnerabilite);
+       actif.addMenace(menace);
         return actifRepository.save(actif);
     }
 
 
-    public Vulnerabilite addMenace(MenaceRequest menaceRequest) {
+    public Menace addVulnerabilite(VulnerabiliteRequest vulnerabiliteRequest) {
 
-        Vulnerabilite vulnerabilite = vulnerabiliteRepository.findById(menaceRequest.getVulnerabiliteId())
-                .orElseThrow(() -> new NotFoundException("Actif not found with id: " + menaceRequest.getVulnerabiliteId()));
-        Menace menace=new Menace();
-        menace.setNom(menaceRequest.getNom());
-        vulnerabilite.addMenace(menace);
+        Menace menace = menaceRepository.findById(vulnerabiliteRequest.getMenaceId())
+                .orElseThrow(() -> new NotFoundException("Actif not found with id: " + vulnerabiliteRequest.getMenaceId()));
+        Vulnerabilite vulnerabilite=new Vulnerabilite();
+        vulnerabilite.setNom(vulnerabiliteRequest.getNom());
+        menace.addVulnerabilite(vulnerabilite);
 
-        return vulnerabiliteRepository.save(vulnerabilite);
+        return menaceRepository.save(menace);
     }
 
-    public void removeMenaceFromVulnerabilite(Long vulnerabiliteId, Long menaceId) {
+    public void removeVulnerabiliteFromMenace(Long menaceId, Long vulnerabiliteId) {
         Vulnerabilite vulnerabilite = vulnerabiliteRepository.findById(vulnerabiliteId)
                 .orElseThrow(()->new NotFoundException("Vulnerabilite not found with id: " + vulnerabiliteId));
 
@@ -73,17 +73,17 @@ public class VulnerabiliteService {
     }
 
 
-    public void removeVulnerabiliteFromActif(Long actifId, Long vulnerabiliteId) {
+    public void removeMenaceFromActif(Long actifId, Long menaceId) {
         Actif actif = actifRepository.findById(actifId)
                 .orElseThrow(() -> new NotFoundException("No actif found with ID: " + actifId));
-        Vulnerabilite vulnerabilite = vulnerabiliteRepository.findById(vulnerabiliteId)
-                .orElseThrow(() -> new NotFoundException("No actif found with ID: " + vulnerabiliteId));
-        if (!actif.getVulnerabilites().contains(vulnerabilite)) {
-            throw new IllegalStateException("vulnerabilite with ID: " + vulnerabiliteId + " is not part of the actif with ID: " + actifId);
+        Menace menace = menaceRepository.findById(menaceId)
+                .orElseThrow(() -> new NotFoundException("No menace found with ID: " + menaceId));
+        if (!actif.getMenaces().contains(menace)) {
+            throw new IllegalStateException("menace with ID: " + menaceId + " is not part of the actif with ID: " + actifId);
         }
-        actif.getVulnerabilites().remove(vulnerabilite);
-        vulnerabilite.getActifs().remove(actif);
-        vulnerabiliteRepository.save(vulnerabilite);
+        actif.getMenaces().remove(menace);
+        menace.getActifs().remove(actif);
+        menaceRepository.save(menace);
         actifRepository.save(actif);
     }
 }

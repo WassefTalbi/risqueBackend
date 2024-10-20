@@ -19,8 +19,8 @@ public class VulnerabiliteRequest {
     @NotBlank(message = "nom  is required and cannot be blank.")
 
     private String nom;
-    @NotNull(message = "actif Id is required and cannot be null.")
-    private Long actifId;
+    @NotNull(message = "menace Id is required and cannot be null.")
+    private Long menaceId;
 
 
 

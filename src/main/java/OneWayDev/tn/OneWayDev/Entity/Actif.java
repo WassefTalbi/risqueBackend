@@ -34,13 +34,13 @@ public class Actif {
     @OneToOne(mappedBy = "actif",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private Risque risque;
     @ManyToMany(mappedBy = "actifs",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
-    private List<Vulnerabilite>vulnerabilites;
+    private List<Menace>menaces;
 
 
 
-    public void addVulnerabilite(Vulnerabilite vulnerabilite) {
-        this.vulnerabilites.add(vulnerabilite);
-            vulnerabilite.getActifs().add(this);
+    public void addMenace(Menace menace) {
+        this.menaces.add(menace);
+        menace.getActifs().add(this);
     }
 
     public void addProjet(Projet projet) {
