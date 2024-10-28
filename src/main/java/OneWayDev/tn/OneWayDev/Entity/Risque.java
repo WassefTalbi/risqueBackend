@@ -19,8 +19,7 @@ public class Risque {
     private Long id;
     private String nom;
     private Integer probabilite;
-    private Integer priorite;
-    private Integer valeurFinanciere;
+
     private Integer valeurBaseImpact;
     @OneToOne
     @JsonIgnore

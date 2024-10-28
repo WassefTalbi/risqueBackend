@@ -208,4 +208,26 @@ public class ProjetService {
         return matrixCells;
     }
 
+    public String determineRiskTreatmentWithConditions(
+            double riskValue, int assetFinancialValue, int correctiveCost, int assetPriority,
+            int financialValue, int financialImpact) {
+
+        if (riskValue >= 0.75) {
+            return "Avoid";
+        } else if (riskValue > 0.5) {
+            return "Reduce";
+        } else if (riskValue < 0.25) {
+            return "Accepter";
+        } else {
+
+            if (assetFinancialValue < correctiveCost ||
+                    (assetPriority > 2 && riskValue > 0.5 * financialValue) ||
+                    (financialImpact * 2 < correctiveCost)) {
+                return "Transfert";
+            } else {
+                return "IntinneAvnid";
+            }
+        }
+    }
+
 }

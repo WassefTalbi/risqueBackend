@@ -37,8 +37,6 @@ public class RisqueService {
     public Risque addRisque(RisqueRequest risqueRequest){
         Risque risque=new Risque();
         risque.setNom(risqueRequest.getRisqueNom());
-        risque.setPriorite(risqueRequest.getRisquePriorite());
-        risque.setValeurFinanciere(risqueRequest.getRisqueValeurFinanciere());
         risque.setProbabilite(risqueRequest.getProbabilite());
         risque.setValeurBaseImpact(risqueRequest.getValeurBaseImpact());
         return risque;
@@ -48,8 +46,6 @@ public class RisqueService {
      try{
          Risque risque= risqueRepository.findById(idRisque).orElseThrow(()->new NotFoundException("risque not found"));
          risque.setNom(risqueRequest.getRisqueNom());
-         risque.setPriorite(risqueRequest.getRisquePriorite());
-         risque.setValeurFinanciere(risqueRequest.getRisqueValeurFinanciere());
          risque.setProbabilite(risqueRequest.getProbabilite());
          risque.setValeurBaseImpact(risqueRequest.getValeurBaseImpact());
          return risqueRepository.save(risque);

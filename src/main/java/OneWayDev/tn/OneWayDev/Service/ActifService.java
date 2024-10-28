@@ -57,9 +57,9 @@ public class ActifService {
         actif.setLogo(logo);
         Risque risque = new Risque();
         risque.setNom(actifRequest.getRisqueNom());
-        risque.setValeurFinanciere(actifRequest.getRisqueValeurFinanciere());
+
         risque.setProbabilite(actifRequest.getProbabilite());
-        risque.setPriorite(actifRequest.getRisquePriorite());
+
         risque.setValeurBaseImpact(actifRequest.getValeurBaseImpact());
         risque.setActif(actif);
         actif.setRisque(risque);

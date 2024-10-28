@@ -18,11 +18,11 @@ public class AssetRequest {
     @Valid
 
     @NotBlank(message = "nom  is required and cannot be blank.")
-    @Size(min=3,max = 25,message = "nom length min is 3 and max is 25")
+
     private String nom;
     private Boolean isNew;
     @NotBlank(message = "description is required and cannot be blank.")
-    @Size(min=3,max = 200,message = "description length min is 3 and max is 200      ")
+
     private String description;
     @NotNull(message = "valeur Financiere is required and cannot be null.")
     private Integer valeurFinanciere;

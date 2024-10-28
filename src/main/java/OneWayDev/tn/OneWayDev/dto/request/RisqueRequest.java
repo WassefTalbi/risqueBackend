@@ -18,7 +18,7 @@ public class RisqueRequest {
     @Valid
 
     @NotBlank(message = "nom  is required and cannot be blank.")
-    @Size(min=3,max = 25,message = "nom length min is 3 and max is 25")
+
     private String risqueNom;
     @NotNull(message = "valeur Financiere is required and cannot be null.")
     private Integer risqueValeurFinanciere;

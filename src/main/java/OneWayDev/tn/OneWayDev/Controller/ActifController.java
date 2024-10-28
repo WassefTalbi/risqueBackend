@@ -62,9 +62,6 @@ private final ActifService actifService;
         try {
             return new ResponseEntity<>(actifService.addActif(actifRequest), HttpStatus.CREATED);
         }
-        catch (EmailExistsExecption e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);//409
-        }
         catch (Exception e) {
             System.out.println(e.getClass().getName());
             System.out.println(e.getMessage());

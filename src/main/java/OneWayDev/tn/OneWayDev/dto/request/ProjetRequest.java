@@ -21,10 +21,10 @@ public class ProjetRequest {
     @Valid
 
     @NotBlank(message = "nom  is required and cannot be blank.")
-    @Size(min=3,max = 25,message = "nom length min is 3 and max is 25")
+
     private String nom;
     @NotBlank(message = "description is required and cannot be blank.")
-    @Size(min=3,max = 200,message = "description length min is 3 and max is 200")
+
     private String description;
     @NotNull(message = "avancement is required and cannot be null.")
     private Integer avancement;
